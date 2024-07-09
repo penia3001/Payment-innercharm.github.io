@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme Sayfası</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+        .card {
+            padding: 30px;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 10px 10px 0 0;
+        }
+        .form-control {
+            border-radius: 10px;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Ödeme Detayları</h3>
+        </div>
+        <div class="card-body">
+            <form id="payment-form">
+                <div class="mb-3">
+                    <label for="cardNumber" class="form-label">Kart Numarası</label>
+                    <input type="text" class="form-control" id="cardNumber" placeholder="#### #### #### ####" maxlength="19" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="expiryDate" class="form-label">Son Kullanma Tarihi</label>
+                        <input type="text" class="form-control" id="expiryDate" placeholder="AA/YY" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="cvv" class="form-label">CVV</label>
+                        <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="3" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="billingAddress" class="form-label">Fatura Adresi</label>
+                    <input type="text" class="form-control" id="billingAddress" placeholder="Örnek Mah., Örnek Cad., No: 123, İstanbul" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Ödemeyi Tamamla</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('cardNumber').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Tüm harfleri sil
+        e.target.value = value.replace(/(.{4})/g, '$1 ').trim(); // Her 4 karakterden sonra boşluk ekle
+    });
+
+    // Form doğrulama
+    (function () {
+        'use strict';
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+    })();
+</script>
+</body>
+</html>
